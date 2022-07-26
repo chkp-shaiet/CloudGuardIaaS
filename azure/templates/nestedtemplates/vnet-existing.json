@@ -15,6 +15,10 @@
         "description": "Resource Group of the existing virtual network"
       },
       "defaultValue": ""
+    },
+    "tagsByResource": {
+      "type": "object",
+      "defaultValue": {}
     }
   },
   "variables": {
@@ -24,6 +28,10 @@
   "outputs": {
     "vnetId": {
       "value": "[variables('vnetId')]",
+      "type": "string"
+    },
+    "vnetAddressPrefix": {
+      "value": "[reference(variables('vnetId'),'2018-11-01').addressSpace.addressPrefixes[0]]",
       "type": "string"
     }
   }
