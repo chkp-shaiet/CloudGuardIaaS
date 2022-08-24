@@ -5,6 +5,9 @@
     "deployNsg": {
       "type": "bool"
     },
+    "existingNsg": {
+      "type": "object"
+    },
     "location": {
       "type": "string"
     },
@@ -84,8 +87,8 @@
   "resources": [
     {
       "type": "Microsoft.Network/networkSecurityGroups",
-      "apiVersion": "2020-06-01",
       "condition": "[parameters('deployNsg')]",
+      "apiVersion": "2020-06-01",
       "location": "[parameters('location')]",
       "name": "[parameters('nsgName')]",
       "properties": {
@@ -139,7 +142,7 @@
       "location": "[parameters('location')]",
       "name": "[parameters('virtualNetworkName')]",
       "dependsOn": [
-        "[if(parameters('deployNsg'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName')), json('null'))]",
+        "[if(parameters('deployNsg'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName')), parameters('existingNsg').id]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet2Name'))]"
       ],
@@ -151,9 +154,7 @@
           {
             "name": "[parameters('Subnet1Name')]",
             "properties": {
-              "networkSecurityGroup": {
-                "id": "[if(parameters('deployNsg'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName')), json('null'))]"
-              },
+              "networkSecurityGroup": "[if(parameters('deployNsg'), if(parameters('useExistingNsg'), parameters('existingNsg'), reference(parameters('nsgName'), [apiVersion], ['Full'])), json('null'))]",
               "addressPrefix": "[parameters('Subnet1Prefix')]",
               "routeTable": {
                 "id": "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]"
@@ -177,6 +178,10 @@
     "vnetId": {
       "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
       "type": "string"
+    },
+    "vnetAddressPrefixes": {
+      "value": "[parameters('virtualNetworkAddressPrefixes')]",
+      "type": "array"
     }
   }
 }
