@@ -154,7 +154,7 @@
           {
             "name": "[parameters('Subnet1Name')]",
             "properties": {
-              "networkSecurityGroup": "[if(parameters('deployNsg'), if(parameters('useExistingNsg'), parameters('existingNsg'), reference(parameters('nsgName'), [apiVersion], ['Full'])), json('null'))]",
+              "networkSecurityGroup": "[if(parameters('deployNsg'), reference(parameters('nsgName'), [apiVersion], ['Full']), parameters('existingNsg'))]",
               "addressPrefix": "[parameters('Subnet1Prefix')]",
               "routeTable": {
                 "id": "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]"
