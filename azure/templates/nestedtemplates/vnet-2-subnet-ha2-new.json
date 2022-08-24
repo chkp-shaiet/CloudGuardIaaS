@@ -142,7 +142,7 @@
       "location": "[parameters('location')]",
       "name": "[parameters('virtualNetworkName')]",
       "dependsOn": [
-        "[if(parameters('deployNsg'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName')), parameters('existingNsg').id]",
+        "[if(parameters('deployNsg'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName')), parameters('existingNsg').id)]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet2Name'))]"
       ],
