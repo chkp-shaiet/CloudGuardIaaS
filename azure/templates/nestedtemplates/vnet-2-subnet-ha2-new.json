@@ -60,15 +60,6 @@
     }
   },
   "variables": {
-    "dependsOnNew": [
-      "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]",
-      "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]",
-      "[resourceId('Microsoft.Network/routeTables', parameters('Subnet2Name'))]"
-    ],
-    "dependsOnExisting": [
-      "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]",
-      "[resourceId('Microsoft.Network/routeTables', parameters('Subnet2Name'))]"
-    ],
     "newNsg": {
       "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
     },
@@ -153,7 +144,11 @@
       "apiVersion": "2020-06-01",
       "location": "[parameters('location')]",
       "name": "[parameters('virtualNetworkName')]",
-      "dependsOn": "[if(parameters('deployNsg'), variables('dependsOnNew'), variables('dependsOnExisting'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]",
+        "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]",
+        "[resourceId('Microsoft.Network/routeTables', parameters('Subnet2Name'))]"
+      ],
       "properties": {
         "addressSpace": {
           "addressPrefixes": "[parameters('virtualNetworkAddressPrefixes')]"
