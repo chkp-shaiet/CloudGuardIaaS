@@ -142,6 +142,7 @@
       "location": "[parameters('location')]",
       "name": "[parameters('virtualNetworkName')]",
       "dependsOn": [
+        "[if(parameters('deployNsg'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName')), json('null'))]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet2Name'))]"
       ],
@@ -153,7 +154,7 @@
           {
             "name": "[parameters('Subnet1Name')]",
             "properties": {
-              "networkSecurityGroup": "[parameters('existingNsg')]",
+              "networkSecurityGroup": "[if(parameters('deployNsg'), json('{'id': '[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]'}'), parameters('existingNsg'))]",
               "addressPrefix": "[parameters('Subnet1Prefix')]",
               "routeTable": {
                 "id": "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]"
