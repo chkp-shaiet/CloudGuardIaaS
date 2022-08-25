@@ -42,10 +42,6 @@
       "type": "string",
       "defaultValue": "[concat(resourceGroup().name, '-vnet')]"
     },
-    "deployNsg": {
-      "type": "bool",
-      "defaultValue": false
-    },
     "deployRouteTable": {
       "type": "bool",
       "defaultValue": false
@@ -57,7 +53,7 @@
   },
   "variables": {
     "newNsg": {
-      "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
     },
     "localSubnetRoute": [
       {
