@@ -2,8 +2,12 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "deployNsg": {
+    "useExistingNsg": {
       "type": "bool"
+    },
+    "deployNsg": {
+      "type": "bool",
+      "defaultValue": false
     },
     "existingNsg": {
       "type": "object"
@@ -91,7 +95,7 @@
         {
           "name": "[parameters('subnet1Name')]",
           "properties": {
-            "networkSecurityGroup": "[if(parameters('deployNsg'), variables('newNsg'), parameters('existingNsg'))]",
+            "networkSecurityGroup": "[if(parameters('useExistingNsg, parameters('existingNsg'), json('null'))]",
             "addressPrefix": "[parameters('subnet1Prefix')]",
             "routeTable": "[if(and(parameters('deployRouteTable'), variables('deployGWLB')), variables('routeTableProperties'), json('null'))]"
           }
