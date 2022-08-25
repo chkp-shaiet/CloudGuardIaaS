@@ -141,7 +141,7 @@
       "apiVersion": "2020-06-01",
       "condition": "[parameters('deployNsg')]",
       "location": "[parameters('location')]",
-      "name": "[parameters('virtualNetworkName')NewNsg]",
+      "name": "[parameters('virtualNetworkName')]NewNsg",
       "dependsOn": [
         "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]",
@@ -181,7 +181,7 @@
       "condition": "[not(parameters('deployNsg'))]",
       "apiVersion": "2020-06-01",
       "location": "[parameters('location')]",
-      "name": "[parameters('virtualNetworkName')ExistingNsg]",
+      "name": "[parameters('virtualNetworkName')]ExistingNsg",
       "dependsOn": [
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet2Name'))]"
