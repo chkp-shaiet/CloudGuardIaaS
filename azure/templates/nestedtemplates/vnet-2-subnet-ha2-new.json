@@ -60,6 +60,7 @@
     }
   },
   "variables": {
+    "empty": [],
     "newNsg": {
       "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
     },
@@ -145,7 +146,7 @@
       "location": "[parameters('location')]",
       "name": "[parameters('virtualNetworkName')]",
       "dependsOn": [
-        "[if(parameters('deployNsg'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName')), '')]",
+        "[if(parameters('deployNsg'), resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName')), variables('empty'))]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet1Name'))]",
         "[resourceId('Microsoft.Network/routeTables', parameters('Subnet2Name'))]"
       ],
