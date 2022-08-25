@@ -95,7 +95,6 @@
         {
           "name": "[parameters('subnet1Name')]",
           "properties": {
-            "networkSecurityGroup": "[if(parameters('useExistingNsg'), parameters('existingNsg'), json('null'))]",
             "addressPrefix": "[parameters('subnet1Prefix')]",
             "routeTable": "[if(and(parameters('deployRouteTable'), variables('deployGWLB')), variables('routeTableProperties'), json('null'))]"
           }
