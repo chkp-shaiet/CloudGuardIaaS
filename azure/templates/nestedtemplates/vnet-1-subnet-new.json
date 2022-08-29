@@ -10,7 +10,8 @@
       "defaultValue": false
     },
     "existingNsg": {
-      "type": "object"
+      "type": "object",
+      "defaultValue": {}
     },
     "location": {
       "type": "string"
